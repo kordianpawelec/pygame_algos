@@ -1,9 +1,12 @@
 import pygame
 import sys
+import random
 
 from utils.constants import *
 from base_draw.button import Button
 from base_draw.text_box import TextBox 
+from base_draw.render import Render
+from algorithms.select_sort import SelectSort
 
 
 class AlgorithmsUI:
@@ -13,8 +16,13 @@ class AlgorithmsUI:
         self.clock = pygame.time.Clock()
         self.buttons = pygame.sprite.Group()
         self.menu_buttons()
+        self.rectangles = pygame.sprite.Group()
         self.range = None
-        self.algo = None
+        self.algo = False
+        self.arr = []
+        self.start = False
+        self.bars = None
+        self.algorithm_chose = None
 
 
     def run(self):
@@ -50,14 +58,19 @@ class AlgorithmsUI:
                     match button.text:
                         case 'Start':
                             if self.range and self.algo:
-                                self.run_drawing()
-                            print('Start')
+                                self.generate_arr()
+                                self.bars = Render(self)
+                                self.start = True
+                                self.algorithm_chose.sorting()
+                                print('Start')  
                             pass
                         case 'Range':
                             text_box = TextBox(self, button)
                             self.get_range(text_box)
                             pass
                         case 'Select sort':
+                            self.algo = True
+                            self.algorithm_chose = SelectSort(self)
                             print('Select sort')
                             pass
             else:
@@ -78,14 +91,25 @@ class AlgorithmsUI:
             self.clock.tick(30)
 
         self.range = int(text_box.text)
-        del text_box
             
             
+
+    def generate_arr(self):
+        for _ in range(self.range):
+            num = random.randint(100, 600)
+            self.arr.append(num)
+
 
 
     def render(self):
         self.screen.fill('purple')
-        self.buttons.update()
+        if not self.start:
+            self.buttons.update()
+        
+
+        if self.start:
+            self.bars.update()
+
         pygame.display.flip()
 
 
