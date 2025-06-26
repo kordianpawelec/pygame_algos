@@ -7,7 +7,7 @@ from base_draw.button import Button
 from base_draw.text_box import TextBox 
 from base_draw.render import Render
 from algorithms.select_sort import SelectSort
-
+from algorithms.quick_sort import QuickSort
 
 class AlgorithmsUI:
     def __init__(self):
@@ -61,7 +61,7 @@ class AlgorithmsUI:
                                 self.generate_arr()
                                 self.bars = Render(self)
                                 self.start = True
-                                self.algorithm_chose.sorting()
+                                self.algorithm_chose.sorting(list(self.rectangles.sprites()))
                                 print('Start')  
                             pass
                         case 'Range':
@@ -73,6 +73,10 @@ class AlgorithmsUI:
                             self.algorithm_chose = SelectSort(self)
                             print('Select sort')
                             pass
+                        case 'Quick sort':
+                            self.algo = True
+                            self.algorithm_chose = QuickSort(self)
+                            print('Quick sort done')
             else:
                 button.colour = BUTTON_COLOUR
   
@@ -120,16 +124,13 @@ class AlgorithmsUI:
         range_button.rect.top = start_button.rect.bottom + 10
         select_algo_button = Button(self, 'Select sort')
         select_algo_button.rect.top = range_button.rect.bottom + 10
+        quick_sort_button = Button(self, 'Quick sort')
+        quick_sort_button.rect.top = select_algo_button.rect.bottom + 10
 
         
         
 
 
-        self.buttons.add(start_button, range_button, select_algo_button)
+        self.buttons.add(start_button, range_button, select_algo_button, quick_sort_button)
         
 
-
-
-if __name__ == '__main__':
-    a = AlgorithmsUI
-    a.run()

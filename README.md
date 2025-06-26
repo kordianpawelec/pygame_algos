@@ -12,14 +12,6 @@ Learn algorithms by watching them work! This project uses Pygame to create visua
 ## Controls
 
 ## Project Structure
-```
-pygame_algos/
-├── main.py
-├── sorting/
-├── searching/
-├── pathfinding/
-└── utils/
-```
 
 ## Adding New Algorithms
 
